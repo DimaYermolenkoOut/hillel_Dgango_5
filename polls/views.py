@@ -3,7 +3,7 @@ from django.http import HttpResponse, Http404, HttpResponseRedirect
 from django.template import loader
 from django.urls import reverse
 from django.views import generic
-
+from django.utils import timezone
 from polls.models import Question, Choice
 
 
@@ -25,6 +25,7 @@ class IndexView(generic.ListView):
 
     def get_queryset(self):
         return Question.objects.order_by("-pub_date")[:5]
+        # return Question.objects.filter(pub_date__lte=timezone.now()).order_by("-pub_date") #[:5]
 
 
 # def detail(request, question_id):
